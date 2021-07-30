@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-2">
+    <ul class="nav nav-pills flex-column">
+      <li class="nav-item">
+        <a class="nav-link active" href="#!">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/createPost">ADD Order</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-10">
+    <div class="" ng-controller="ordersCtrl">
+      {{title}}..
+      <div class="col-md-12">
+        <!--
+        <select ng-model="order">
+          <option value="title" selected="selected">Title Asc</option><option value="date">Date Asc</option>
+        </select>
+      -->
+        <span style="float:left">
+          <!-- Search: <input type="text" ng-model="search_text" /> -->
+        </span>
+        <span style="float:right;">
+          Rows to display<input type="number" min="0" max="{{orders.length}}" step="1" ng-model="rowLimit"  />
+        </span>
+      </div>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th ng-click="sortData('id')">Order Id <span ng-class="getSortClass('id')"></span></th>
+            <th ng-click="sortData('keyInfo.name')">key name <span ng-class="getSortClass('keyInfo.name')"</th>
+            <th ng-click="sortData('vehicleInfo.year')">Vehicle info<span ng-class="getSortClass('vehicleInfo.year')"</th>
+            <!-- <th ng-click="sortData('id')">Id <span ng-class="getSortClass('title')"></span>
+            </th> -->
+            <th ng-click="sortData('technicianInfo.lastname')">Tech Name<span ng-class="getSortClass('technicianInfo.lastname')"</th>
+            <!-- <th ng-click="sortData('tech_id')">Te Date <span ng-class="getSortClass('date')"></span></th> -->
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="" ng-repeat="order in orders|limitTo:rowLimit|orderBy:order:reverseSort|filter:search">
+            <td>{{order.id}}</td>
+            <td>{{ order.keyInfo.name}}</td>
+            <td>{{order.vehicleInfo.year}} {{order.vehicleInfo.make}} {{order.vehicleInfo.model}}</td>
+            <td>{{order.technicianInfo.firstname}} {{order.technicianInfo.lastname}}</td>
+            <td>
+              <a ng-href="/editOrder/{{order.id}}" class="label label-primary">edit</a>
+              <button class="label label-danger" ng-click=deleteOrder(order.id)>DELETE</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+
+    </div>
+  </div>
+
+
+</div>

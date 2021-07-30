@@ -1,0 +1,59 @@
+<div ng-controller="createCtrl">
+  <div class="row">
+    <div class="col-md-2">
+      <ul class="nav nav-pills flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/createPost">ADD Order</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-10">
+      <div class="">
+        {{title}}..
+        <form ng-submit="addOrder()" id="createform" name="createForm">
+          <div class="form-group">
+           <label for="vehicles">Vehicles</label>
+           <select ng-model="vehicle.id" id="vehicle_id" class="form-control select-input"
+           ng-change="loadKeys()" name="vehicle_id">
+              <option value="">select Vehicle</option>
+              <option ng-repeat="option in vehicles" value="{{option.id}}">
+                  {{option.year}} {{option.make}} {{option.model}}
+              </option>
+           </select>
+           <label for="keys">keys</label>
+           <select ng-model="key.id" id="key_id" class="form-control select-input"
+           name="key_id">
+              <option value="">select key</option>
+              <option ng-repeat="option in vehicleKeys" value="{{option.id}}">
+                  {{option.name}}
+              </option>
+           </select>
+           <label for="technician">Technician</label>
+           <select ng-model="technician.id" id="technician_id" class="form-control select-input" ng-required=""
+           name="technician_id">
+              <option value="">select Technician</option>
+              <option ng-repeat="option in technicians" value="{{option.id}}">
+                  {{option.lastname}}, {{option.firstname}}
+              </option>
+           </select>
+          </div>
+          <p id="msg"></p>
+          <div class="form-group">
+            <div class="col-md-12 col-md-offset-8">
+              <button type="submit" id="submit" class="btn btn-default">Add Order</button>
+              <a href="/" class="btn btn-default">BACK </a>
+            </div>
+          </div>
+       </form>
+
+
+      </div>
+    </div>
+
+
+  </div>
+
+</div>

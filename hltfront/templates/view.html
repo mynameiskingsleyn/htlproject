@@ -1,0 +1,39 @@
+<div class="row">
+  <div class="col-md-2">
+    <ul class="nav nav-pills flex-column">
+      <li class="nav-item">
+        <a class="nav-link active" href="#">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/createPost">ADD Post</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-md-10">
+    <div class="" ng-controller="viewCtrl">
+      {{title}}..
+      <div class="">
+        {{error}}
+      </div>
+      <div  ng-show="{{post.info.title}} != undefined">
+        <fieldset>
+          <h4>{{post.info.title}}</h4>
+          <p>Description!!: {{post.info.description}}</p>
+          <p>Published on: {{post.info.published_on}}</p>
+          <p>Error is {{post.status}}</p>
+        </fieldset>
+      </div>
+
+      <div ng-show="{{!post.found}}">
+        {{post.msg}}
+      </div>
+      <a href="/"class="btn btn-primary"> Back </a>
+      <a href="/editPost/{{post.info.id}}"class="btn btn-primary"> Edit </a>
+
+
+
+    </div>
+  </div>
+
+
+</div>
