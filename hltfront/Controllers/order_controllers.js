@@ -1,5 +1,5 @@
 var ordersCtrl = function($scope,$http,orderServices){
-  var title = "All posts";
+  var title = "All Orders";
   $scope.title= title;
   console.log(title);
   var url = "http://local.hltback.com/api/orders";

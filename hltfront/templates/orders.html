@@ -13,13 +13,7 @@
     <div class="" ng-controller="ordersCtrl">
       {{title}}..
       <div class="col-md-12">
-        <!--
-        <select ng-model="order">
-          <option value="title" selected="selected">Title Asc</option><option value="date">Date Asc</option>
-        </select>
-      -->
         <span style="float:left">
-          <!-- Search: <input type="text" ng-model="search_text" /> -->
         </span>
         <span style="float:right;">
           Rows to display<input type="number" min="0" max="{{orders.length}}" step="1" ng-model="rowLimit"  />
@@ -31,10 +25,7 @@
             <th ng-click="sortData('id')">Order Id <span ng-class="getSortClass('id')"></span></th>
             <th ng-click="sortData('keyInfo.name')">key name <span ng-class="getSortClass('keyInfo.name')"</th>
             <th ng-click="sortData('vehicleInfo.year')">Vehicle info<span ng-class="getSortClass('vehicleInfo.year')"</th>
-            <!-- <th ng-click="sortData('id')">Id <span ng-class="getSortClass('title')"></span>
-            </th> -->
             <th ng-click="sortData('technicianInfo.lastname')">Tech Name<span ng-class="getSortClass('technicianInfo.lastname')"</th>
-            <!-- <th ng-click="sortData('tech_id')">Te Date <span ng-class="getSortClass('date')"></span></th> -->
             <th>Action</th>
           </tr>
         </thead>
