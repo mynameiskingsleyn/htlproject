@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class TechnicianTableSeeder extends Seeder
+class VehicleTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +14,8 @@ class TechnicianTableSeeder extends Seeder
     public function run()
     {
         //
-        \App\Models\Technician::factory(10)->create();
+        \App\Models\Vehicle::factory(20)->create();
 
-        $this->command->info('Technicians table seeded..');
+        $this->command->info('Vehicle table seeded..');
     }
 }

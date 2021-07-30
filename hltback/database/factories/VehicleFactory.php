@@ -8,7 +8,7 @@ use KeyFactory;
 use DB;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use \Log;
-use FactoryTrait;
+use Database\Factories\FactoryTrait;
 
 class VehicleFactory extends Factory
 {
@@ -28,12 +28,6 @@ class VehicleFactory extends Factory
     public function definition()
     {
         return [
-            //
-            //'key_id'=>$this->uniqueKeyId('vehicles', 'key_id'),
-            // 'key_id'=>function () {
-            //     //Key::inRandomOrder()->first()->id
-            //     return Key::factory()->create()->id;
-            // },
             'year'=>$this->getYear(),
             'make'=>$this->getMake(),
             'model'=>$this->getModel(),

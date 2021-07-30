@@ -23,7 +23,7 @@ class OrderFactory extends Factory
      */
     public function definition()
     {
-        $keyId = 4;
+        $keyId = 5;
         $vehicle = Vehicle::inRandomOrder()->first();
         $keys = $vehicle->keys;
         $numKeys = count($keys);

@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Key;
 use VehicleFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use FactoryTrait;
+use Database\Factories\FactoryTrait;
 
 class KeyFactory extends Factory
 {
