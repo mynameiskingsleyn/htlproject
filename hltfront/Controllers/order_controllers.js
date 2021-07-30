@@ -5,7 +5,6 @@ var ordersCtrl = function($scope,$http,orderServices){
   var url = "http://local.hltback.com/api/orders";
   $http.get(url)
         .then(function(response){
-          //console.log(response.data.orders);
           $scope.orders = response.data.orders;
           var num = $scope.orders.length;
           $scope.rowMax = num;
@@ -14,7 +13,6 @@ var ordersCtrl = function($scope,$http,orderServices){
           if($scope.rowMax==undefined){
             $scope.rowMax =10;
           }
-          //console.log($scope.posts);
           $scope.rowLimit = 2;
           $scope.order="id";
           $scope.reverseSort = false;
@@ -138,24 +136,16 @@ var editCtrl = function($scope,$http,$routeParams,orderServices){
   var techApiUrl = 'http://local.hltback.com/api/technicians';
   $scope.vehicles = null;
   $scope.technicians = null;
+  $scope.order = null;
   var orderUrl = 'http://local.hltback.com/api/orders/'+id
   $scope.vehicleKeys = [];
-  $http.get(vehiclesApiUrl)
-    .then(function(response){
-      // console.log(response);
-      $scope.vehicles =response.data.vehicles;
-
-    });
-
-  $http.get(techApiUrl)
-      .then(function(response){
-        $scope.technicians =response.data.technicians;
-
-  });
-  $http({
-      url:orderUrl,
-      method:"get"
-  })
+  $scope.order = null;
+  $scope.keyId = null;
+  $scope.techId = null;
+  $scope.vehicleId = null;
+  $scope.orderId = null;
+  $scope.selectedVehicle = null;
+  $http.get(orderUrl)
   .then(function(response){
       var order = response.data.order;
       $scope.order = order;
@@ -163,36 +153,39 @@ var editCtrl = function($scope,$http,$routeParams,orderServices){
       $scope.keyId = order.key_id;
       $scope.techId = order.technician_id;
       $scope.vehicleId = order.vehicle_id;
+      $scope.selectedVehicle = order.vehicle_id;
       $scope.orderId = order.id;
       $scope.selectedVehicle = order.vehicleInfo;
       $scope.vehicleKeys.push(order.keyInfo);
-      //$('#editform').on('submit',updatePost($scope.post));
+      $http.get(vehiclesApiUrl)
+        .then(function(response){
+          $scope.vehicles =response.data.vehicles;
+        });
+
+      $http.get(techApiUrl)
+          .then(function(response){
+            $scope.technicians =response.data.technicians;
+      });
   });
 
-  $scope.loadKeys = function(){
 
+
+  $scope.loadKeys = function(){
+    var vehicleId = $('#vehicle_id').val();
     $scope.selectedVehicle= orderServices.getElObjFromArray($scope.vehicles,'id',$scope.vehicleId);
     $scope.vehicleKeys = $scope.selectedVehicle.keys;
-  }
-  $scope.selecedOption = function (item1, item2){
-    var result = item1 == item2;
-    return result;
   }
 
 
    $scope.updatePost =function(){
-    //e.preventDefault();
     var ajax_url = 'http://local.hltback.com/api/orders/'+$scope.orderId;
-    //console.log("update post called!!");
-
     var dataString = $('#editform').serialize();
-    console.log(dataString);
-    alert("functioin called");
-    if($scope.vehicleId.length == 0 || $scope.keyId.length==0 || $scope.techId.length == 0){
+    var newVehicleId = $("#vehicle_id").val();
+    var newTechId = $("#technician_id").val();
+    var newKeyId = $("#key_id").val();
+    if(newVehicleId.length == 0 || newTechId.length==0 || newKeyId.length == 0){
       $('#msg').html("<span class='error'>Error missing some entries</span>");
     }else{
-      // console.log('title is '+p_title);
-      //$('#msg').html("<span class='success'>Saved</span>");
       var id = $scope.orderId;
       $.ajax({
           type:'PUT',
@@ -205,7 +198,6 @@ var editCtrl = function($scope,$http,$routeParams,orderServices){
             console.log("success");
           },
           error:function(err){
-            //$("#msg").html(result.msg);
             console.log("not successful");
           }
       });

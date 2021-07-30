@@ -18,26 +18,31 @@
             <input type="hidden" name="id" value="{{orderId}}">
             <input type="hidden" name="" value="PUT" _method="PUT">
             <label for="vehicles">Vehicles</label>
-            <select ng-model="vehicleId" id="vehicle_id" class="form-control select-input"
-            ng-change="loadKeys()" name="vehicle_id" ng-selected="vehicleId">
-               <option ng-repeat="option in vehicles" value="{{option.id}}"
-               ng-selected="selecedOption(option.id,vehicleId)">
-                   {{option.year}} {{option.make}} {{option.model}}
-               </option>
+            <select id="vehicle_id" class="form-control select-input"
+            change="loadKeys()" name="vehicle_id">
+              <option value="">Select vehicle</option>
+              <option
+              ng-repeat="veh in vehicles" value="{{veh.id}}"
+              ng-selected="{{ veh.id == vehicleId }}">
+                   {{veh.year}} {{veh.make}} {{veh.model}}
+              </option>
             </select>
             <label for="keys">keys</label>
-            <select ng-model="keyId" id="key_id" class="form-control select-input"
+            <select id="key_id" class="form-control select-input"
             name="key_id">
                <option value="">select key</option>
-               <option ng-repeat="option in vehicleKeys" value="{{option.id}}">
+               <option ng-repeat="option in vehicleKeys" value="{{option.id}}"
+               ng-selected="{{ option.id == keyId }}">
                    {{option.name}}
                </option>
             </select>
             <label for="technician">Technician</label>
-            <select ng-model="techId" id="technician_id" class="form-control select-input" ng-required=""
+            <select id="technician_id" class="form-control select-input" ng-required=""
             name="technician_id">
                <option value="">select Technician</option>
-               <option ng-repeat="option in technicians" value="{{option.id}}">
+               <option ng-repeat="option in technicians" value="{{option.id}}"
+               ng-selected="{{ option.id == techId }}"
+               >
                    {{option.lastname}}, {{option.firstname}}
                </option>
             </select>
