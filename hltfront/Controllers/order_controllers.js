@@ -1,8 +1,9 @@
 var ordersCtrl = function($scope,$http,orderServices){
   var title = "All Orders";
   $scope.title= title;
-  console.log(title);
   var url = "http://local.hltback.com/api/orders";
+  $scope.token = orderServices.getToken();
+  console.log($scope.token);
   $http.get(url)
         .then(function(response){
           $scope.orders = response.data.orders;
@@ -60,6 +61,7 @@ var ordersCtrl = function($scope,$http,orderServices){
 var createCtrl = function($scope,$http,orderServices){
   var ajax_url = 'http://local.hltback.com/api/orders';
   var title = "Create an Order";
+  $scope.token = orderServices.getToken();
   $scope.title = title;
   var vehiclesApiUrl = 'http://local.hltback.com/api/vehicles';
   var techApiUrl = 'http://local.hltback.com/api/technicians';
@@ -105,12 +107,17 @@ var createCtrl = function($scope,$http,orderServices){
     }else{
       console.log(dataString);
       $('#msg').html("<span class='success'>Created</span>");
-
+      //var token = CookieServiceProvider.get("auth_token");
+      var token = ""
+      alert(token);
       $.ajax({
           type:'POST',
           url:ajax_url,
           data:dataString,
           cache:false,
+          headers:{
+            Authorization:"Bearer "+$scope.token
+          },
           success:function(result){
             console.log(result);
             $("#msg").html(result.message);
@@ -193,6 +200,9 @@ var editCtrl = function($scope,$http,$routeParams,orderServices){
           params:{id:id},
           data:dataString,
           cache:false,
+          headers:{
+            Authorization:"Bearer "+$scope.token
+          },
           success:function(result){
             $("#msg").html("Order has been saved");
             console.log("success");

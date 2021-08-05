@@ -1,4 +1,4 @@
-var myApp = angular.module('crud',['ngRoute']);
+var myApp = angular.module('crud',['ngRoute','ngCookies']);
 
 myApp.config(function($routeProvider,$locationProvider){
   $routeProvider
