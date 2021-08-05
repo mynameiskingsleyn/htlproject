@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\VehicleController;
 use App\Http\Controllers\API\TechnicianController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('orders', OrderController::class);
 Route::apiResource('vehicles', VehicleController::class);
 Route::apiResource('technicians', TechnicianController::class);
+
+Route::post('register', [AuthController::class,'register']);
+Route::post('login', [AuthController::class,'login']);

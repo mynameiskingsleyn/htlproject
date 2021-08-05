@@ -14,6 +14,10 @@ use Validator;
 
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        //$this->middleware('auth:api')->except(['index','show']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -24,7 +28,7 @@ class OrderController extends Controller
         //
         $newOrders = [];
         $orders = Order::all();
-        
+
         foreach ($orders as $order) {
             $oneOrder = $order;
             $vehicle_id = $order->vehicle_id;
