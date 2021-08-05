@@ -23,9 +23,8 @@ class OrderController extends Controller
     {
         //
         $newOrders = [];
-
         $orders = Order::all();
-        //dd($orders);
+        
         foreach ($orders as $order) {
             $oneOrder = $order;
             $vehicle_id = $order->vehicle_id;
