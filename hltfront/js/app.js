@@ -33,6 +33,6 @@ myApp.config(function($routeProvider,$locationProvider){
 });
 myApp.controller("ordersCtrl",ordersCtrl);
 myApp.controller("createCtrl",createCtrl);
-myApp.controller("deleteCtrl",deleteCtrl);
 myApp.controller("editCtrl",editCtrl);
 myApp.service("orderServices",orderServices);
+myApp.directive("ngCustomChange", ngCustomChange);

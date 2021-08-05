@@ -1,14 +1,12 @@
 var ordersCtrl = function($scope,$http,orderServices){
   var title = "All Orders";
   $scope.title= title;
-  console.log(title);
   var url = "http://local.hltback.com/api/orders";
   $http.get(url)
         .then(function(response){
           $scope.orders = response.data.orders;
           var num = $scope.orders.length;
           $scope.rowMax = num;
-          console.log($scope.orders);
 
           if($scope.rowMax==undefined){
             $scope.rowMax =10;
@@ -18,7 +16,6 @@ var ordersCtrl = function($scope,$http,orderServices){
           $scope.reverseSort = false;
 
           $scope.sortData = function(column){
-            console.log(column);
             $scope.reverseSort=($scope.order == column)? !$scope.reverseSort:false;
             $scope.order=column;
           }
@@ -33,7 +30,6 @@ var ordersCtrl = function($scope,$http,orderServices){
         });
         $scope.deleteOrder = function(id){
           var orders = $scope.orders;
-          console.log('input id is '+id)
           for(var i = 0;i < orders.length; i++){
             var obj = orders[i];
             if(id == obj.id){
@@ -103,7 +99,7 @@ var createCtrl = function($scope,$http,orderServices){
     if($scope.Error.length > 0){
       $('#msg').html("<span class='error'>Error missing some entries</span>");
     }else{
-      console.log(dataString);
+      // console.log(dataString);
       $('#msg').html("<span class='success'>Created</span>");
 
       $.ajax({
@@ -112,7 +108,7 @@ var createCtrl = function($scope,$http,orderServices){
           data:dataString,
           cache:false,
           success:function(result){
-            console.log(result);
+            // console.log(result);
             $("#msg").html(result.message);
           },
           error:function(xhr, ajaxOptions, thrownError){
@@ -130,7 +126,7 @@ var createCtrl = function($scope,$http,orderServices){
 var editCtrl = function($scope,$http,$routeParams,orderServices){
 
   var id = $routeParams.id;
-  console.log('id is '+id);
+  // console.log('id is '+id);
   $scope.title=" Edit ";
   var vehiclesApiUrl = 'http://local.hltback.com/api/vehicles';
   var techApiUrl = 'http://local.hltback.com/api/technicians';
@@ -149,7 +145,7 @@ var editCtrl = function($scope,$http,$routeParams,orderServices){
   .then(function(response){
       var order = response.data.order;
       $scope.order = order;
-      console.log($scope.order);
+      // console.log($scope.order);
       $scope.keyId = order.key_id;
       $scope.techId = order.technician_id;
       $scope.vehicleId = order.vehicle_id;
@@ -160,18 +156,22 @@ var editCtrl = function($scope,$http,$routeParams,orderServices){
       $http.get(vehiclesApiUrl)
         .then(function(response){
           $scope.vehicles =response.data.vehicles;
+          $scope.loadKeys('true');
         });
 
       $http.get(techApiUrl)
           .then(function(response){
             $scope.technicians =response.data.technicians;
       });
+
   });
 
 
 
-  $scope.loadKeys = function(){
-    var vehicleId = $('#vehicle_id').val();
+  $scope.loadKeys = function(initial){
+    if(initial !== 'true'){
+      $scope.vehicleId = $('#vehicle_id').val();
+    }
     $scope.selectedVehicle= orderServices.getElObjFromArray($scope.vehicles,'id',$scope.vehicleId);
     $scope.vehicleKeys = $scope.selectedVehicle.keys;
   }
@@ -195,28 +195,14 @@ var editCtrl = function($scope,$http,$routeParams,orderServices){
           cache:false,
           success:function(result){
             $("#msg").html("Order has been saved");
-            console.log("success");
+            // console.log("success");
           },
           error:function(err){
-            console.log("not successful");
+            // console.log("not successful");
           }
       });
     }
     return false;
   }
-
-}
-var deleteCtrl = function($scope,$http,$routeParams){
-  var id = $routeParams.id;
-  var url = window.location.hostname;
-  $http({
-    url:'http://angphp.king/webservices/deletePost.php',
-    params:{id:id},
-    method:"get"
-  })
-  .then(function(response){
-    $scope.posts = response.data;
-    console.log($scope.posts);
-  });
 
 }

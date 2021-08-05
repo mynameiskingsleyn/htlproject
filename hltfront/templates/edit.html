@@ -16,11 +16,11 @@
             <input type="hidden" name="" value="PUT" _method="PUT">
             <label for="vehicles">Vehicles</label>
             <select id="vehicle_id" class="form-control select-input"
-            change="loadKeys()" name="vehicle_id">
+             name="vehicle_id" ng-custom-change="loadKeys(false)">
               <option value="">Select vehicle</option>
               <option
               ng-repeat="veh in vehicles" value="{{veh.id}}"
-              ng-selected="{{ veh.id == vehicleId }}">
+              ng-selected="{{ veh.id == vehicleId }}" >
                    {{veh.year}} {{veh.make}} {{veh.model}}
               </option>
             </select>
