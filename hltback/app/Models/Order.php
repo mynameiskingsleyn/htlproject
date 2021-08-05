@@ -10,19 +10,4 @@ class Order extends Model
     use HasFactory;
     protected $guarded = [];
     protected $with = [];
-
-    public function key()
-    {
-        return $this->hasOne(Key::class);
-    }
-
-    public function vehicle()
-    {
-        return $this->hasOne(Vehicle::class);
-    }
-
-    public function technician()
-    {
-        return $this->hasOne(Technisian::class);
-    }
 }
