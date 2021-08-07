@@ -1,6 +1,25 @@
 var myApp = angular.module('crud',['ngRoute','ui.router']);
 
-myApp.config(function($stateProvider,$routeProvider,$locationProvider){
+myApp.config(function($stateProvider,$routeProvider,$locationProvider,$urlRouterProvider){
+  //$urlRouterProvider.otherwise('/');
+
+  // $stateProvider
+  //   .state('home',{
+  //     url:'/',
+  //     controller: 'ordersCtrl',
+  //     templateUrl:'templates/orders.html'
+  //   })
+  //   .state('create',{
+  //     url:'/createOrder',
+  //     controller: 'createCtrl',
+  //     templateUrl:'templates/create.html'
+  //   })
+  //   .state('edit',{
+  //     url:'/editOrder/:id',
+  //     controller: 'createCtrl',
+  //     templateUrl:'templates/create.html'
+  //   })
+
   $routeProvider
   .when('/',
     {
@@ -8,7 +27,7 @@ myApp.config(function($stateProvider,$routeProvider,$locationProvider){
       templateUrl:'templates/orders.html'
     }
   )
-  .when('/createorder',
+  .when('/createOrder',
     {
       controller: 'createCtrl',
       templateUrl:'templates/create.html'

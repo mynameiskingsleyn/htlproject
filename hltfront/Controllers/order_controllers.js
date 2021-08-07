@@ -11,7 +11,7 @@ var ordersCtrl = function($scope,$http,orderServices){
           if($scope.rowMax==undefined){
             $scope.rowMax =10;
           }
-          $scope.rowLimit = 2;
+          $scope.rowLimit = 5;
           $scope.order="id";
           $scope.reverseSort = false;
 

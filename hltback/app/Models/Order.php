@@ -11,18 +11,18 @@ class Order extends Model
     protected $guarded = [];
     protected $with = [];
 
-    public function key()
-    {
-        return $this->hasOne(Key::class);
-    }
-
-    public function vehicle()
-    {
-        return $this->hasOne(Vehicle::class);
-    }
-
-    public function technician()
-    {
-        return $this->hasOne(Technisian::class);
-    }
+    // public function key()
+    // {
+    //     return $this->hasOne(Key::class);
+    // }
+    //
+    // public function vehicle()
+    // {
+    //     return $this->hasOne(Vehicle::class);
+    // }
+    //
+    // public function technician()
+    // {
+    //     return $this->hasOne(Technisian::class);
+    // }
 }
