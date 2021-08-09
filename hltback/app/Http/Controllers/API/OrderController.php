@@ -9,22 +9,29 @@ use App\Models\Key;
 use App\Models\Technician;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProjectResource;
+use App\Http\Controllers\API\Traits\ApiPaginateTrait;
 //use Illuminate\Validation\Validator;
 use Validator;
 
 class OrderController extends Controller
 {
+    use ApiPaginateTrait;
     /**
      * Display a listing of the resource.
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
+        // dd($request->all());
+        $page = $request->get('page') ?? 1;
+        $count = $request->get('count') ?? 10;
+        $skip = $this->getSkip($page, $count);
+        //dd($skip);
         $newOrders = [];
 
-        $orders = Order::all();
+        $orders = Order::skip($skip)->take($count)->get();//Order::all();
         //dd($orders);
         foreach ($orders as $order) {
             $oneOrder = $order;

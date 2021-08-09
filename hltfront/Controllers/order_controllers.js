@@ -1,34 +1,43 @@
 var ordersCtrl = function($scope,$http,orderServices){
   var title = "All Orders";
   $scope.title= title;
-  var url = "http://local.hltback.com/api/orders";
-  $http.get(url)
-        .then(function(response){
-          $scope.orders = response.data.orders;
-          var num = $scope.orders.length;
-          $scope.rowMax = num;
+  $scope.pageNumber = 1;
+  $scope.disablePrev = true;
+  $scope.resultCount = 10;
+  $scope.rowLimit = 10;
+  $scope.order="id";
+  $scope.reverseSort = false;
+  var fetchData = function(){
+    var url = "http://local.hltback.com/api/orders?page="+$scope.pageNumber+"&count="+$scope.resultCount;
+    $scope.disableNext = false;
+    $http.get(url)
+          .then(function(response){
+            $scope.orders = response.data.orders;
+            var num = $scope.orders.length;
+            $scope.rowMax = num;
 
-          if($scope.rowMax==undefined){
-            $scope.rowMax =10;
-          }
-          $scope.rowLimit = 5;
-          $scope.order="id";
-          $scope.reverseSort = false;
-
-          $scope.sortData = function(column){
-            $scope.reverseSort=($scope.order == column)? !$scope.reverseSort:false;
-            $scope.order=column;
-          }
-          $scope.getSortClass = function(column){
-            if($scope.order == column){
-              return $scope.reverseSort? 'arrow-down':'arrow-up';
-
+            if($scope.rowMax==undefined){
+              $scope.rowMax =$scope.rowLimit;
             }
-            return '';
-          }
+            if(num < $scope.resultCount){
+              $scope.disableNext = true;
+            }
+          });
+    }
+        fetchData();
 
-        });
-        $scope.deleteOrder = function(id){
+        $scope.sortData = function(column){ //console.log(column); console.log($scope.orders);
+          $scope.reverseSort=($scope.order == column)? !$scope.reverseSort:false;
+          $scope.order=column;
+        }
+        $scope.getSortClass = function(column){
+          if($scope.order == column){
+            return $scope.reverseSort? 'arrow-down':'arrow-up';
+
+          }
+          return '';
+        }
+    $scope.deleteOrder = function(id){
           var orders = $scope.orders;
           for(var i = 0;i < orders.length; i++){
             var obj = orders[i];
@@ -37,8 +46,8 @@ var ordersCtrl = function($scope,$http,orderServices){
               $scope.deleteOrderCall(id);
             }
           }
-          $scope.orders = orders;
-        }
+        $scope.orders = orders;
+    }
         $scope.deleteOrderCall = function(id){
           var ajax_url = 'http://local.hltback.com/api/orders/'+id;
           $.ajax({
@@ -50,6 +59,33 @@ var ordersCtrl = function($scope,$http,orderServices){
               error:function(xhr, ajaxOptions, thrownError){
               }
           });
+        }
+
+        $scope.updatePage = function(direction){
+          console.log(direction);
+          if(direction =="up"){
+            $scope.nextPage();
+          }else{
+            $scope.prevPage();
+          }
+        }
+
+        $scope.nextPage = function (){
+          var pNumber = $scope.pageNumber;
+          $scope.pageNumber++;
+          if(pNumber != $scope.pageNumber){
+            fetchData();
+          }
+
+        }
+        $scope.prevPage = function (){
+          var pNumber = $scope.pageNumber;
+          if($scope.pageNumber > 1){
+            $scope.pageNumber--;
+          }
+          if(pNumber != $scope.pageNumber){
+            fetchData();
+          }
         }
 }
 

@@ -44,7 +44,18 @@
       </table>
 
 
-
+      <div class="row">
+        <div class="col-md-10">
+          <div class="flex">
+            <button type="button" name="button" ng-click="updatePage('down')">prev</button>
+            <button type="button" name="button" ng-click="updatePage('up')"
+            ng-disabled="disableNext">next</button>
+          </div>
+        </div>
+        <div class="col-md-2">
+            page {{pageNumber}}
+        </div>
+      </div>
     </div>
   </div>
 
